@@ -1,0 +1,64 @@
+# ==================================
+# 🔐 Environment Variables & Secrets
+# ==================================
+.env
+.env.*
+*.env
+.streamlit/secrets.toml
+
+# ==================================
+# 🐍 Python Bytecode & Cache
+# ==================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ==================================
+# 📦 Virtual Environments
+# ==================================
+venv/
+env/
+ENV/
+.venv/
+
+# ==================================
+# 📊 FAISS Vector Store (Optional)
+# (Commented out so index files can be committed to GitHub)
+# ==================================
+# vector_store/
+# *.faiss
+# *.pkl
+# *.index
+
+# ==================================
+# 📝 Logs
+# ==================================
+*.log
+
+# ==================================
+# 💻 IDE / Editor Files
+# ==================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==================================
+# 🖥️ OS Files
+# ==================================
+.DS_Store
+Thumbs.db
+
+# ==================================
+# 📁 Build / Distribution
+# ==================================
+build/
+dist/
+*.egg-info/
+
+# ==================================
+# 🗂️ Temporary Files
+# ==================================
+*.tmp
+*.bak
+*.swp
