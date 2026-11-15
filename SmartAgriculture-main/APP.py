@@ -47,7 +47,32 @@ def load_vector_store():
     if not os.path.exists(vector_store_path) and os.path.exists("vector_store"):
         vector_store_path = "vector_store"
 
-    return FAISS.load_local(vector_store_path, embedding_model, allow_dangerous_deserialization=True)
+    index_file = os.path.join(vector_store_path, "index.faiss")
+    if os.path.exists(index_file):
+        return FAISS.load_local(vector_store_path, embedding_model, allow_dangerous_deserialization=True)
+
+    # Automatic fallback: if index file was not committed to git, build it on the fly from knowledge_base!
+    try:
+        from knowledge_base import KNOWLEDGE_BASE
+        from langchain_core.documents import Document
+
+        documents = []
+        for item in KNOWLEDGE_BASE:
+            content = f"{item['text']}\n\nSource: {item['source']}\nReference: {item['url']}\nTopic: {item['topic']}"
+            documents.append(
+                Document(
+                    page_content=content,
+                    metadata={"topic": item["topic"], "source": item["source"]}
+                )
+            )
+        vs = FAISS.from_documents(documents, embedding_model)
+        try:
+            vs.save_local(vector_store_path)
+        except Exception:
+            pass
+        return vs
+    except Exception as e:
+        raise RuntimeError(f"Failed to load or initialize vector store: {e}")
 
 vectorstore = load_vector_store()
 

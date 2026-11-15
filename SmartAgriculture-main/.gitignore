@@ -23,12 +23,12 @@ ENV/
 
 # ==================================
 # 📊 FAISS Vector Store (Optional)
-# Uncomment next line if you DO NOT want to push vector_store
+# (Commented out so index files can be committed to GitHub)
 # ==================================
 # vector_store/
-*.faiss
-*.pkl
-*.index
+# *.faiss
+# *.pkl
+# *.index
 
 # ==================================
 # 📝 Logs
